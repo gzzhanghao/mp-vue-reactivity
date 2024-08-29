@@ -1,5 +1,11 @@
 # mp-vue-reactivity
 
+## 0.1.1
+
+### Patch Changes
+
+- 5f727fa: Fix export fields in package.json
+
 ## 0.1.0
 
 ### Minor Changes
