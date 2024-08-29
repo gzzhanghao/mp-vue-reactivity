@@ -5,12 +5,12 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.prod.esm.js",
-      "require": "./dist/index.prod.cjs.js"
+      "import": "./dist/index.esm.prod.js",
+      "require": "./dist/index.cjs.prod.js"
     }
   },
-  "main": "./dist/index.prod.esm.js",
-  "module": "./dist/index.prod.esm.js",
+  "main": "./dist/index.esm.prod.js",
+  "module": "./dist/index.esm.prod.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
