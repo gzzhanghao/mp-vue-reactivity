@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "lib": ["ESNext"],
+    "typeRoots": ["node_modules/@types", "src/types"],
+    "types": ["wechat-miniprogram", "global", "wx"]
+  },
+  "include": ["src"]
+}
