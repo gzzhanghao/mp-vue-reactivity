@@ -1,0 +1,74 @@
+{
+  "name": "mp-vue-reactivity",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.prod.esm.js",
+      "require": "./dist/index.prod.cjs.js"
+    }
+  },
+  "main": "./dist/index.prod.esm.js",
+  "module": "./dist/index.prod.esm.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "concurrently 'npm:build:*'",
+    "build:rollup": "rollup -c rollup.config.mjs",
+    "build:types": "dts-bundle-generator --config dts.config.cjs",
+    "dev": "rollup -wc rollup.config.mjs",
+    "lint": "concurrently 'npm:lint:*'",
+    "lint:script": "eslint .",
+    "lint:types": "tsc --noEmit",
+    "prepare": "husky",
+    "release": "concurrently npm:build npm:test npm:lint && pnpm publish -r --access public",
+    "test": "vitest --coverage run"
+  },
+  "lint-staged": {
+    "*.{js,ts,cjs}": [
+      "eslint"
+    ]
+  },
+  "dependencies": {
+    "@vue/reactivity": "^3.5.0-rc.1"
+  },
+  "devDependencies": {
+    "@changesets/changelog-git": "^0.2.0",
+    "@changesets/cli": "^2.27.7",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@eslint/js": "^9.6.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.7",
+    "@rollup/plugin-swc": "^0.3.1",
+    "@swc/core": "1.6.13",
+    "@types/wechat-miniprogram": "^3.4.7",
+    "@vitest/coverage-istanbul": "^2.0.5",
+    "@vitest/ui": "^2.0.5",
+    "chokidar": "^3.6.0",
+    "concurrently": "^8.2.2",
+    "dts-bundle-generator": "^9.5.1",
+    "eslint": "^9.6.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "globals": "^15.8.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.2",
+    "rollup": "^4.21.1",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.0",
+    "vitest": "^2.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gzzhanghao/mp-vue-reactivity"
+  },
+  "engines": {
+    "pnpm": "^9"
+  }
+}
