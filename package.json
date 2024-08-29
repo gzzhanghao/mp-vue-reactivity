@@ -18,7 +18,7 @@
   "scripts": {
     "build": "concurrently 'npm:build:*'",
     "build:rollup": "rollup -c rollup.config.mjs",
-    "build:types": "dts-bundle-generator --config dts.config.cjs",
+    "build:types": "dts-bundle-generator --config dts-gen.config.cjs",
     "dev": "rollup -wc rollup.config.mjs",
     "lint": "concurrently 'npm:lint:*'",
     "lint:script": "eslint .",

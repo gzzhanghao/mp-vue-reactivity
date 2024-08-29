@@ -20,7 +20,6 @@ function getConfig(config) {
         format: 'cjs',
       },
     ],
-    external: ['@vue/reactivity'],
     plugins: [
       swc({
         swc: {

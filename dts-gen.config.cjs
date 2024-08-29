@@ -8,6 +8,9 @@ module.exports = {
       filePath: './src/index.ts',
       outFile: './dist/index.d.ts',
       noCheck: true,
+      libraries: {
+        inlinedLibraries: ['@vue/reactivity', '@vue/shared'],
+      },
     },
   ],
 };
