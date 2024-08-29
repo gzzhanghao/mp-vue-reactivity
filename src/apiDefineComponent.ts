@@ -26,6 +26,7 @@ import { flushJobs } from './vue/scheduler';
 
 export interface ComponentSetupContext<TCom extends GenericComponentInstance> {
   component: TCom;
+  /** 触发事件，参见组件事件 */
   triggerEvent: TCom['triggerEvent'];
 }
 
