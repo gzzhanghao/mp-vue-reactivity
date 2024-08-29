@@ -22,7 +22,16 @@ function getConfig(config) {
     ],
     external: ['@vue/reactivity'],
     plugins: [
-      swc(),
+      swc({
+        swc: {
+          jsc: {
+            parser: {
+              syntax: 'typescript',
+            },
+            target: 'es2015',
+          },
+        },
+      }),
       replace({
         preventAssignment: true,
         values: {
