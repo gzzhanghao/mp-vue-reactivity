@@ -1,5 +1,11 @@
 # mp-vue-reactivity
 
+## 0.1.3
+
+### Patch Changes
+
+- 7d74ca5: Inline @vue/reactivity
+
 ## 0.1.2
 
 ### Patch Changes
