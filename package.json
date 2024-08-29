@@ -25,7 +25,7 @@
     "lint:types": "tsc --noEmit",
     "prepare": "husky",
     "release": "concurrently npm:build npm:test npm:lint && pnpm publish -r",
-    "test": "vitest --coverage"
+    "test": "vitest --coverage run"
   },
   "lint-staged": {
     "*.{js,ts,cjs}": [
