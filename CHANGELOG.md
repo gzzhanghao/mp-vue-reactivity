@@ -1,5 +1,11 @@
 # mp-vue-reactivity
 
+## 0.1.4
+
+### Patch Changes
+
+- 2f34534: Add comment for lifecycle hooks
+
 ## 0.1.3
 
 ### Patch Changes
