@@ -35,6 +35,9 @@ function getConfig(config) {
         preventAssignment: true,
         values: {
           __DEV__: config.dev,
+          'process.env.NODE_ENV': JSON.stringify(
+            config.dev ? 'development' : 'production',
+          ),
         },
       }),
       nodeResolve({
