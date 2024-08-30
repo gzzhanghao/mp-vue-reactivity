@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@vue/reactivity':
-        specifier: ^3.5.0-rc.1
-        version: 3.5.0-rc.1
     devDependencies:
       '@changesets/changelog-git':
         specifier: ^0.2.0
@@ -48,6 +44,9 @@ importers:
       '@vitest/ui':
         specifier: ^2.0.5
         version: 2.0.5(vitest@2.0.5)
+      '@vue/reactivity':
+        specifier: ^3.5.0-rc.1
+        version: 3.5.0-rc.1
       chokidar:
         specifier: ^3.6.0
         version: 3.6.0
