@@ -1,5 +1,11 @@
 # mp-vue-reactivity
 
+## 0.1.5
+
+### Patch Changes
+
+- 99dc314: Mark @vue/reactivity as dev deps
+
 ## 0.1.4
 
 ### Patch Changes
