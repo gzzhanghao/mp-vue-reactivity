@@ -1,5 +1,11 @@
 # mp-vue-reactivity
 
+## 0.1.7
+
+### Patch Changes
+
+- 70e188e: Add getCurrentInstance
+
 ## 0.1.6
 
 ### Patch Changes
