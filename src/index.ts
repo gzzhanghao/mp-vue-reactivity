@@ -122,4 +122,4 @@ export {
   type WatchStopHandle,
 } from './apiWatch';
 
-export { nextTick } from './apiGlobal';
+export { getCurrentInstance, nextTick } from './apiGlobal';
