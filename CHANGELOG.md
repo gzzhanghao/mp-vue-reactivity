@@ -1,5 +1,11 @@
 # mp-vue-reactivity
 
+## 0.1.6
+
+### Patch Changes
+
+- 9c92f5a: Batch setData calls
+
 ## 0.1.5
 
 ### Patch Changes
