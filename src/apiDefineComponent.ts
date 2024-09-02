@@ -7,11 +7,7 @@ import {
 
 import { watch } from './apiWatch';
 import { setCurrentInstance } from './shared/instance';
-import {
-  GenericComponentInstance,
-  createInternal,
-  getInternal,
-} from './shared/internal';
+import { createInternal, getInternal } from './shared/internal';
 import {
   bindHooks,
   createTriggerFn,
@@ -29,16 +25,18 @@ import {
   queueJob,
 } from './vue/scheduler';
 
-export interface ComponentSetupContext<TCom extends GenericComponentInstance> {
+export interface ComponentSetupContext<
+  TCom extends WechatMiniprogram.Component.TrivialInstance,
+> {
   component: TCom;
   /** 触发事件，参见组件事件 */
   triggerEvent: TCom['triggerEvent'];
 }
 
-export type ComponentSetupFn<TProps, TCom extends GenericComponentInstance> = (
-  props: TProps,
-  context: ComponentSetupContext<TCom>,
-) => IAnyObject | void;
+export type ComponentSetupFn<
+  TProps,
+  TCom extends WechatMiniprogram.Component.TrivialInstance,
+> = (props: TProps, context: ComponentSetupContext<TCom>) => IAnyObject | void;
 
 export interface CommonComponentOptions {
   listenPageScroll?: boolean;
@@ -100,7 +98,7 @@ const fullPageEvents = [
 ];
 
 export function defineComponent<TProps>(
-  setup: ComponentSetupFn<TProps, GenericComponentInstance>,
+  setup: ComponentSetupFn<TProps, WechatMiniprogram.Component.TrivialInstance>,
 ): string;
 
 export function defineComponent<
@@ -284,9 +282,9 @@ export function defineComponent(optionsOrSetup: any): string {
   });
 }
 
-function createSetupContext<TCom extends GenericComponentInstance>(
-  component: TCom,
-): ComponentSetupContext<TCom> {
+function createSetupContext<
+  TCom extends WechatMiniprogram.Component.TrivialInstance,
+>(component: TCom): ComponentSetupContext<TCom> {
   return {
     component,
     triggerEvent: (name, detail, options) =>
