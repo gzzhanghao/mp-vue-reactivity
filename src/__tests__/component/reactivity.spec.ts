@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
   defineComponent,
@@ -270,5 +270,35 @@ describe('component reactivity', () => {
 
     component.lifetimes.attached.call(component);
     expect(component.__internal__.scope.effects.length).toBe(0);
+  });
+
+  it('batch set data', async () => {
+    defineComponent(() => {
+      const foo = ref(0);
+      const bar = ref(1);
+      const double = computed(() => bar.value * 2);
+
+      const increment = () => {
+        foo.value += 1;
+        bar.value += 2;
+      };
+
+      return {
+        foo,
+        bar,
+        double,
+        increment,
+      };
+    });
+    const spy = vi.spyOn(component, 'setData');
+
+    component.lifetimes.attached.call(component);
+    expect(spy).toHaveBeenCalledWith({ foo: 0, bar: 1, double: 2 });
+    expect(component.data).toEqual({ foo: 0, bar: 1, double: 2 });
+
+    component.increment();
+    await nextTick();
+    expect(spy).toHaveBeenNthCalledWith(2, { foo: 1, bar: 3, double: 6 });
+    expect(component.data).toEqual({ foo: 1, bar: 3, double: 6 });
   });
 });

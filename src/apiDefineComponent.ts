@@ -22,7 +22,12 @@ import { IAnyObject } from './shared/types';
 import { unrefDeep } from './shared/unref';
 import { isFunction, isObject, keys } from './shared/utils';
 import { callWithErrorHandling } from './vue/errorHandling';
-import { flushJobs } from './vue/scheduler';
+import {
+  SchedulerJob,
+  SchedulerJobFlags,
+  flushJobs,
+  queueJob,
+} from './vue/scheduler';
 
 export interface ComponentSetupContext<TCom extends GenericComponentInstance> {
   component: TCom;
@@ -195,28 +200,57 @@ export function defineComponent(optionsOrSetup: any): string {
             createSetupContext(this),
           ]);
 
+          const pendingFlushKeys: string[] = [];
+          let flushJobPending = false;
+
+          const queueSetData = (key: string) => {
+            pendingFlushKeys.push(key);
+            if (flushJobPending) {
+              return;
+            }
+            flushJobPending = true;
+            queueJob(flushSetData);
+          };
+
+          const flushSetData: SchedulerJob = () => {
+            flushJobPending = false;
+
+            const data: Record<string, unknown> = {};
+            for (const key of pendingFlushKeys) {
+              data[key] = unrefDeep(result[key]);
+            }
+            pendingFlushKeys.length = 0;
+
+            this.setData(data);
+          };
+
+          internal.flushJob = flushSetData;
+
+          const initialData: Record<string, unknown> = {};
+
           for (const key of keys(result)) {
             const value = result[key];
             if (isFunction(value)) {
               this[key] = value;
               continue;
             }
+            initialData[key] = unrefDeep(value);
             if (!isObject(value)) {
-              this.setData({ [key]: value });
               continue;
             }
             watch(
               isRef(value) || isReactive(value) ? value : () => value,
-              (value) => {
-                this.setData({ [key]: unrefDeep(value) });
+              () => {
+                queueSetData(key);
               },
               {
                 deep: true,
-                immediate: true,
+                flush: 'sync',
               },
             );
           }
 
+          this.setData(initialData);
           setCurrentInstance(undefined);
         });
 
@@ -230,6 +264,9 @@ export function defineComponent(optionsOrSetup: any): string {
         const internal = getInternal(this);
         if (internal) {
           internal.scope.stop();
+          if (internal.flushJob) {
+            internal.flushJob.flags! |= SchedulerJobFlags.DISPOSED;
+          }
         }
         triggerLifecycle(this, 'onDetached');
       },

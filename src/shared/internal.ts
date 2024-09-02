@@ -1,10 +1,13 @@
 import { EffectScope } from '@vue/reactivity';
 
+import { SchedulerJob } from '../vue/scheduler';
+
 export interface ComponentInternalInstance {
   uid: number;
   instance: GenericComponentInstance;
   props: Record<string, unknown>;
   scope: EffectScope;
+  flushJob?: SchedulerJob;
 }
 
 export type GenericComponentInstance = WechatMiniprogram.Component.Instance<

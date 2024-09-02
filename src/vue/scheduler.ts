@@ -130,7 +130,7 @@ export function flushJobs(seen?: CountMap) {
   try {
     for (flushIndex = 0; flushIndex < queue.length; flushIndex++) {
       const job = queue[flushIndex];
-      if (job) {
+      if (job && !(job.flags! & SchedulerJobFlags.DISPOSED)) {
         if (__DEV__ && check(job)) {
           continue;
         }
@@ -173,7 +173,9 @@ function flushPostCbs(cbs: SchedulerJob[], seen: CountMap): void {
     if (__DEV__ && checkRecursiveUpdates(seen!, job)) {
       continue;
     }
-    callWithErrorHandling(job, job.i, 'scheduler post flush');
+    if (!(job.flags! & SchedulerJobFlags.DISPOSED)) {
+      callWithErrorHandling(job, job.i, 'scheduler post flush');
+    }
     job.flags! &= ~SchedulerJobFlags.QUEUED;
   }
 }
