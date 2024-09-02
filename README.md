@@ -1,5 +1,3 @@
-# ts-starter
+# mp-vue-reactivity
 
-```bash
-npx degit https://github.com/gzzhanghao/ts-starter.git
-```
+Use [@vue/reactivity](https://github.com/vuejs/core/tree/main/packages/reactivity) in [Wechat Miniprogram](https://developers.weixin.qq.com/miniprogram/dev/framework/).
