@@ -1,5 +1,11 @@
 # mp-vue-reactivity
 
+## 0.1.9
+
+### Patch Changes
+
+- b18e54f: Add useEmits() and useProps()
+
 ## 0.1.8
 
 ### Patch Changes
